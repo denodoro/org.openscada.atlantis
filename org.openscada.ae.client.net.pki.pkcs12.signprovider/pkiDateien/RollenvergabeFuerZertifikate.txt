@@ -1,0 +1,2 @@
+alias des zertifikates;besitzer;kommagetrennte rollen;relativer pfad zum zertifikat;dateityp
+cert_dennie;Dennie Ackermann;operator;pkiDateien/CERT_DENNIE.p12;PKCS12
