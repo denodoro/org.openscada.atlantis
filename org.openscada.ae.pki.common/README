@@ -1,0 +1,36 @@
+Um die hier verwendeten PKI-Funktionalitäten zu verwenden, ist es erforderlich, 
+noch ein paar Konfigurationsschritte durchzuführen.
+
+- Je nach benutzter Java-Version, sollte sich noch die unrestricted policy files heruntergeladen werden. Diese
+Dateien, die "erlauben" kryptographische Algorithmen mit "unlimited strength" zu benutzen, sind notwendig, da
+in der Standardausführung des JDK nur "normale starke" Algorithmen verwendet werden können, aufgrund dessen, dass
+in manchen Ländern die unlimitierte Stärke dieser Algorithmen nicht erlaubt ist.
+
+Für Java 7 befindet sich der Download zur Zeit (22.1.2013) hier:
+http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html
+
+und für Java 6 befindet er sich hier:
+http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html
+
+Nach dem Download sollte die Datei entpackt werden und durch die Anleitung in der README-Datei gegangen werden.
+
+- Aufgrund dessen, dass diverse Algorithmen von verschiedenen Anbieter implementiert wurden und verschiedene Anbieter
+von kyptographischen Algorithmen diverse Formate leicht unterschiedlich interpretieren, ist es notwendig, im Programmcode
+anzugeben, welchen Anbieter man benutzen möchte. In der ersten Fassung der PKI-Funktionalitäten wurden Algorithmen 
+und Formate vom BouncyCastle-Anbieter (http://www.bouncycastle.org) benutzt. Die Bibliothek dieses Anbieters muss noch 
+zur Java Runtime Environment hinzugefügt werden.
+Hierfür sollte auf die Seite http://www.bouncycastle.org/latest_releases.html gegangen werden und die jar-Datei
+des Providers für die verwendete Java-Version heruntergeladen werden. Die namenskonvention für die Provider-jars in 
+BouncyCastle ist bcprov-JdkVersion-Version.jar. Für alle Javaversionen ab Java 5 wird die gleiche jar-Datei 
+verwendet. Also im Falle von Java 5, Java 6 oder Java 7 ist es 'bcprov-jdk15on-147.jar' ,welche unter
+http://www.bouncycastle.org/download/bcprov-jdk15on-147.jar herunterzuladen ist.
+Diese Datei muss in den Ordner jre/lib/ext der benutzten Java-Installation kopiert werden. Bei Windows als 
+Betriebssystem muss darauf geachtet werden, dass es sein könnte, dass 2 Java-Installationen verwendet werden. 
+Eine mit einer puren JRE und eine mit dem JDK. Die Datei sollte in beide jre/lib/ext-Ordner kopiert werden.
+
+- Unter jre/lib/security ist eine Datei zu finden, 'java.security', in welcher unter anderem spezifiziert ist, 
+welche Provider freigegeben sind und benutzt werden können. In diese Datei sollte unten in die Liste, mit der 
+Überschrift "List of providers and their preference orders" die Zeile
+security.provider.N=org.bouncycastle.jce.provider.BouncyCastleProvider
+
+hinzugefügt werden, wo 'N' die nächste Zahl der Sequenz sein soll.
