@@ -1,0 +1,2 @@
+acknowledgeAlarm;operator
+controlMachine;administrator
