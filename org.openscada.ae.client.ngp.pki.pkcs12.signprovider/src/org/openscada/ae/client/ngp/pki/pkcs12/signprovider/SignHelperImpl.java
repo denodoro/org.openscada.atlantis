@@ -97,7 +97,8 @@ public class SignHelperImpl implements SignHelper{
 
 	public KeyStore getKeyStoreForSigning() {
 		
-		String pathToPKCS = "pkiDateien" + File.separator  + "DennieCert.p12"; // uiMethodeDieDenPfadZurPKCS12DateiAbfragt()
+		String pathToPKCS = SignHelperImpl.class.getClassLoader().getResource("DennieCert.p12").getFile();//  "pkiDateien" + File.separator  + "DennieCert.p12"; // uiMethodeDieDenPfadZurPKCS12DateiAbfragt()
+		
 		String password = "dennie"; //uiMethodeDieDasPasswortAbfragt();
 		
 		KeyStore ks = null;

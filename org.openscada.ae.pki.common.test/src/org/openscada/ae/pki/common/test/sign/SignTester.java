@@ -21,7 +21,7 @@ public AcknowledgeRequest acknowledge(AcknowledgeRequest aknRequest){
 public Message acknowledgeMessage(Message aknRequest){
 	Message signedRequest = (Message)signerNet.signRequest(aknRequest);
 	
-	return null;
+	return signedRequest;
 }
 
 }

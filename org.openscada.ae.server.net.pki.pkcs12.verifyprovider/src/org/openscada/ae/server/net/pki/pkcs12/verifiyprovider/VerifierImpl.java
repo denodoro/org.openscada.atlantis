@@ -30,7 +30,9 @@ private VerifyHelper verifyHelper = new VerifyHelperImpl();
 			return verifyMessage((Message) message);
 		}
 		else {
-			return false;
+			System.out.println("FALSE?????");
+			return verifyMessage((Message) message);
+//			return false;
 		}
 	}
 
@@ -39,7 +41,13 @@ private VerifyHelper verifyHelper = new VerifyHelperImpl();
 	 * verifySignatureData auf.
 	 * */
 	private boolean verifyMessage(Message requestToBeVerified) {
-		StringValue identifier = (StringValue)requestToBeVerified.getValues().get("stringIdentityOfUserCertificate");
+		if(requestToBeVerified==null){
+		}
+		if(requestToBeVerified.getValues()==null){
+		}
+		if(requestToBeVerified.getValues().get("stringIdentityOfUserCertificate")==null){
+		}
+		StringValue identifier = (StringValue)(requestToBeVerified.getValues().get("stringIdentityOfUserCertificate"));
 		
 		if(identifier==null){
 			return false;
@@ -59,8 +67,6 @@ private VerifyHelper verifyHelper = new VerifyHelperImpl();
 		 * TODO: nochmal pruefen, ob das decodieren so auch funktioniert, oder ob man da
 		 * noch aufgrund der codierung (utf8 etc) etwas aendern muss.
 		 * */
-		System.out.println("Signatur ist angekommen. als string: " + requestToBeVerified.getValues().get("signature"));
-		System.out.println("als byteArray: " + EnDeCoderByteString.getInstance().decodeStringToBytearray(((StringValue)requestToBeVerified.getValues().get("signature")).getValue()));
 		byte[] signatureBytes = EnDeCoderByteString.getInstance().decodeStringToBytearray(((StringValue)requestToBeVerified.getValues().get("signature")).getValue());
 		
 		if(signatureBytes==null){

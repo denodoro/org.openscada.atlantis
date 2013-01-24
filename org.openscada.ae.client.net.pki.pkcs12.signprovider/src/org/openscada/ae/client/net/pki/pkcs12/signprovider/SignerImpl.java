@@ -30,23 +30,22 @@ public class SignerImpl implements Signer {
 	 * */
 	
 	@Override
-	public Object signRequest(
-			Object requestToBeSigned) {
+	public Object signRequest(Object requestToBeSigned) {
+		
 		if(requestToBeSigned instanceof Message){
 			Message message = (Message)requestToBeSigned;
 		byte[] signatureOfRequest;
 		PrivateKey privateKeyForSigning = this.signHelper.getPrivateKeyForSigning();
 		String idToFindPublicKeyOnOtherSide = this.signHelper.getIdentifierStringForCertificate();
 		signatureOfRequest = createSignatureForRequest(new SignatureData(message), privateKeyForSigning, idToFindPublicKeyOnOtherSide);
-
 		message.getValues().put("stringIdentityOfUserCertificate", new StringValue(idToFindPublicKeyOnOtherSide));	
-		message.getValues().put("signature", new StringValue(EnDeCoderByteString.getInstance().encodeBytearrayToString(signatureOfRequest)));
-
-		System.out.println("signing finished with signature: " + signatureOfRequest.toString());
+		String signatureString = EnDeCoderByteString.getInstance().encodeBytearrayToString(signatureOfRequest);	
+		message.getValues().put("signature", new StringValue(signatureString));
 		return message;
 		}
+		
 		else{
-			System.out.println("Something went wrong in SignerImpl signRequest()");
+			System.out.println("net Something went wrong in SignerImpl signRequest()");
 		return null;
 		}
 	}

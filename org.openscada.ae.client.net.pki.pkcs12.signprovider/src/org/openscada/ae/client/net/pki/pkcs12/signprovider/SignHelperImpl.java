@@ -97,7 +97,7 @@ public class SignHelperImpl implements SignHelper{
 
 	public KeyStore getKeyStoreForSigning() {
 // /home/denniea/workspaceAlt/org.openscada.ae.client.ngp.pki.pkcs12.signprovider/pkiDateien/DennieCert.p12
-		String pathToPKCS = File.separator + "home" + File.separator + "denniea" + File.separator + "workspaceAlt" + File.separator + "org.openscada.ae.client.ngp.pki.pkcs12.signprovider" + File.separator + "pkiDateien" + File.separator  + "DennieCert.p12"; // uiMethodeDieDenPfadZurPKCS12DateiAbfragt()
+		String pathToPKCS = SignHelperImpl.class.getClassLoader().getResource("DennieCert.p12").getFile(); // uiMethodeDieDenPfadZurPKCS12DateiAbfragt()
  
 		String password = "dennie"; //uiMethodeDieDasPasswortAbfragt();
 		

@@ -20,11 +20,16 @@ public class TestPKI {
 		AcknowledgeRequest aknRequestNgp = getTestAknRequest();
 		Message aknRequestNet = getTestAknMessage();
 		System.out.println("Requests erstellt. Nun signieren.");
+		System.out.println("-----------------sign NGP");
 		AcknowledgeRequest signedAknRequestNgp = signTester.acknowledge(aknRequestNgp);
+		System.out.println("-----------------sign NET");
+		System.out.println(aknRequestNet.getClass());
 		Message signedAknRequestNet = signTester.acknowledgeMessage(aknRequestNet);
 		System.out.println("Requests signiert. Nun verifizieren.");
+		System.out.println("-----------------verify NGP");
 		verifyTester.acknowledge(signedAknRequestNgp);
-		
+		System.out.println("-----------------verify NET");
+		verifyTester.acknowledge(signedAknRequestNet);
 		System.out.println("Requests verifiziert.");
 	}
 	

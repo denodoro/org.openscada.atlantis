@@ -34,8 +34,7 @@ public class SignerImpl implements Signer {
 	 * */
 	
 	@Override
-	public Object signRequest(
-			Object requestToBeSigned) {
+	public Object signRequest(Object requestToBeSigned) {
 		if(requestToBeSigned instanceof AcknowledgeRequest){
 			AcknowledgeRequest aknRequest = (AcknowledgeRequest)requestToBeSigned;
 		byte[] signatureOfRequest;
@@ -47,9 +46,7 @@ public class SignerImpl implements Signer {
 		aknRequest.getOperationParameters().getProperties().put("stringIdentityOfUserCertificate", idToFindPubKeyOnOtherSide);
 		
 		aknRequest.getOperationParameters().getProperties().put("signature", EnDeCoderByteString.getInstance().encodeBytearrayToString(signatureOfRequest));
-		System.out.println("Signatur als byteArray: " + signatureOfRequest);
-		System.out.println("Signatur als String: " + EnDeCoderByteString.getInstance().encodeBytearrayToString(signatureOfRequest));
-		System.out.println("signing finished with signature.toString(): " + signatureOfRequest.toString());
+
 		return aknRequest;
 		}
 		else{

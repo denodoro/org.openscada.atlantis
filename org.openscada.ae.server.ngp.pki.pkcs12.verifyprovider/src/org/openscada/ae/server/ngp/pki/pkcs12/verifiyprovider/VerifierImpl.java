@@ -57,10 +57,12 @@ private VerifyHelper verifyHelper = new VerifyHelperImpl();
 	private boolean verifyAknRequest(AcknowledgeRequest requestToBeVerified) {
 		String identifier = requestToBeVerified.getOperationParameters().getProperties().get("stringIdentityOfUserCertificate");
 		if(identifier.isEmpty()){
+			System.out.println("1");
 			return false;
 		}
 		X509Certificate certificateOfUser = this.verifyHelper.getPublicKeyCertificateByStringIdentifier(identifier);
 		if(certificateOfUser==null){
+			System.out.println("2");
 			return false;
 		}
 		
@@ -69,6 +71,7 @@ private VerifyHelper verifyHelper = new VerifyHelperImpl();
 		boolean verifiedByCA = verifyCertificateWithCACertificate(certificateOfUser);
 		System.out.println("verified by CA? " + verifiedByCA);
 		if(verifiedByCA==false){
+			System.out.println("3");
 			return false;
 		}
 		/**
@@ -77,7 +80,7 @@ private VerifyHelper verifyHelper = new VerifyHelperImpl();
 		 * */
 		System.out.println("Signatur ist angekommen. als string: " + requestToBeVerified.getOperationParameters().getProperties().get("signature"));
 		System.out.println("als byteArray: " + EnDeCoderByteString.getInstance().decodeStringToBytearray(requestToBeVerified.getOperationParameters().getProperties().get("signature")));
-		byte[] signatureBytes = requestToBeVerified.getOperationParameters().getProperties().get("signature").getBytes();
+		byte[] signatureBytes = EnDeCoderByteString.getInstance().decodeStringToBytearray(requestToBeVerified.getOperationParameters().getProperties().get("signature"));
 		
 		if(signatureBytes==null){
 			return false;

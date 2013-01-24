@@ -25,7 +25,7 @@ import org.openscada.ae.pki.common.verifiy.VerifyHelper;
 public class VerifyHelperImpl implements VerifyHelper{
 
 
-	private static final String PATH_TO_TRUSTED_CA_CERTIFICATE_CER = "C:" + File.separator  + "Dokumente und Einstellungen" + File.separator  + "Silly" + File.separator  + "workspace" + File.separator  + "org.openscada.ae.client.ngp.pki.pkcs12.signprovider" + File.separator  + "pkiDateien" + File.separator  + "Test_CA.cer";
+	private static final String PATH_TO_TRUSTED_CA_CERTIFICATE_CER = VerifyHelperImpl.class.getClassLoader().getResource("Test_CA.cer").getFile();
 
 	@Override
 	public X509Certificate getPublicKeyCertificateByStringIdentifier(
@@ -75,7 +75,7 @@ public class VerifyHelperImpl implements VerifyHelper{
 		 * Hier muss dann noch der Pfad zum Token/Smartcard/sonstigePKCS-Datei eingesetzt werden
 		 * analog zur Methode isTokenAvailableForSigning(), die es nur prueft, ob eins vorhanden ist
 		 * */
-		String pathToPKCS = "C:" + File.separator  + "Dokumente und Einstellungen" + File.separator  + "Silly" + File.separator  + "workspace" + File.separator  + "org.openscada.ae.client.ngp.pki.pkcs12.signprovider" + File.separator  + "pkiDateien" + File.separator  + "DennieCert.p12"; // uiMethodeDieDenPfadZurPKCS12DateiAbfragt()
+		String pathToPKCS = VerifyHelperImpl.class.getClassLoader().getResource("DennieCert.p12").getFile(); // uiMethodeDieDenPfadZurPKCS12DateiAbfragt()
 
 
 		// Zertifikat in den KeyStore laden
@@ -114,7 +114,7 @@ public class VerifyHelperImpl implements VerifyHelper{
 		}
 		System.out.println("No certificate found with keystore.isCertificateEntry. Now trying to get it directly");
 		System.out.println("Number of aliases found in file: " + numberOfAliases);
-		// wenn nur 1 alias gefunden wurde, wird es der alias vom private key sein und das dazugehörige
+		// wenn nur 1 alias gefunden wurde, wird es der alias vom private key sein und das dazugehï¿½rige
 		// certificate wird mit dem gleichen alias gefunden werden
 		if(numberOfAliases==1){
 		certOfPKCS12file = (X509Certificate)keystore.getCertificate(aliasOfPrivateKey);
